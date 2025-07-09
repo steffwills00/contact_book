@@ -53,3 +53,5 @@ def start():
             print('Invalid option, try again.')
 
 start()
+
+print('hello')
