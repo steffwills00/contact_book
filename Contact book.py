@@ -1,22 +1,50 @@
+class Contact:
+    def __init__(self, name, number, email, pic):
+        self.name = name.title().strip()
+        self.number = number.strip()
+        self.email = email.strip()
+        self.pic = pic
+
+    def __str__(self):
+        return f"{self.name} : {self.number}, {self.email}"
+
+
 #dictionary to store contacts
-contacts = {}
+contacts = []
+
+#loop through contacts
+def loop_contacts():
+    print('Here is a list of your contacts')
+    if contacts:
+        print('Here is a list of your contacts: ')
+        for contact in contacts:
+            print(contact)
+    else:
+        print('You have no contacts yet.')
+
 
 #create new contact
 def new_contact():
     print('Create a new contact')
-    contact_name = input('Enter name: ').strip().title()
-    contact_number = input('Enter number: ')
-    contacts[contact_name] = contact_number
-    print(f'New contact created for {contact_name}')
+    name = input('Enter name: ').strip().title()
+    number = input('Enter number: ')
+    email = input('Enter email: ')
+    pic = input('Enter picture file name: ')
+
+    contact = Contact(name, number, email, pic)
+    contacts.append(contact)
+    print(f'New contact created for {contact.name}')
 
 
 #Delete a contact
 def delete_contact():
     print('Delete a contact')
-    who = input('Select who you want to delete: ')
-    if who in contacts:
-        contacts.pop(who)
-    else:
+    who = input('Select who you want to delete: ').strip().title()
+    for contact in contacts:
+        if contact.name == who:
+            contacts.remove(contact)
+            print(f'Contact for {who} has been deleted.')
+            return
         print('Contact not found!')
 
 
@@ -31,13 +59,7 @@ def start():
         choice = input('Select an option: ')
 
         if choice == '1':
-            print('Here is a list of your contacts')
-            if contacts:
-                print('Here is a list of your contacts: ')
-                for name, number in contacts.items():
-                    print(f'{name} : {number}')
-            else:
-                print('You have no contacts yet.')
+            loop_contacts()
 
         elif choice == '2':
             new_contact()
@@ -53,5 +75,3 @@ def start():
             print('Invalid option, try again.')
 
 start()
-
-print('hello')
